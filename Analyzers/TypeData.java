@@ -44,7 +44,6 @@ public class TypeData {
 
     @Override
     public String toString(){
-        return //"_______________________________________________________________________________\n" +
-                "| " + type + "\t\t|" + size + "\t\t|" + words +  "\t\t|" + lines + "\t\t|" + filesCount + "\t\t|";
+        return "| " + type + "\t\t|" + size + "\t\t|" + words +  "\t\t|" + lines + "\t\t|" + filesCount + "\t\t|";
     }
 }

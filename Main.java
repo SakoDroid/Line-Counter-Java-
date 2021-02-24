@@ -15,20 +15,20 @@ public class Main {
                 if (!args[0].isEmpty())
                     fl = new File(args[0]);
                 else
-                    exception = "Please enter an address!";
+                    exception = "!!! Please enter an address!";
             }
             else{
                  for (int i = 1 ; i < args[0].length() ; i++){
                     if (args[0].charAt(i) == 'h')
                         hidden = true;
                     else
-                        exception = "Unrecognized flag! \"" + args[0].charAt(i) + "\"";
+                        exception = "!!! Unrecognized flag : \"" + args[0].charAt(i) + "\"";
                 }
                 if (exception.isEmpty()){
                     if (!args[1].isEmpty())
                         fl = new File(args[1]);
                     else
-                        exception = "Please enter an address!";
+                        exception = "!!! Please enter an address!";
                 }
             }
         }else{
@@ -51,7 +51,7 @@ public class Main {
         else if (fl.isFile())
             anlz = new FileAnalyzer(fl);
         else
-            System.out.println("The address is invalid!");
+            System.out.println("!!! The address is invalid!");
         printResult(anlz);
     }
 
