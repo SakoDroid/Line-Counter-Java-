@@ -6,7 +6,7 @@ import java.util.regex.*;
 public class FileAnalyzer implements Analyzer{
 
     private final File file;
-    private long linesCount = 0, wordsCount = 0, size = 0;
+    private long linesCount = 0, wordsCount = 0,blankLineCount = 0,bracketLineCount = 0, size = 0;
     private String fileType = "";
 
     public FileAnalyzer(File fl){
@@ -22,6 +22,10 @@ public class FileAnalyzer implements Analyzer{
             String line;
             while((line = bf.readLine()) != null){
                 linesCount++;
+                if (line.isEmpty())
+                    blankLineCount ++;
+                else if (line.trim().equals("{") || line.trim().equals("}"))
+                    bracketLineCount ++;
                 wordsCount += line.split(" ").length;
             }
         }catch (Exception ex){
@@ -50,12 +54,21 @@ public class FileAnalyzer implements Analyzer{
         return this.size;
     }
 
+    public long getBlankLineCount() {
+        return this.blankLineCount;
+    }
+
+    public long getBracketLineCount() {
+        return this.bracketLineCount;
+    }
+
     public String getFileType(){
         return this.fileType;
     }
 
     @Override
     public String toString(){
-        return "| " + fileType + "\t\t|" + size + "\t\t|" + wordsCount +  "\t\t|" + linesCount + "\t\t|1\t\t|";
+        return "| " + fileType + "\t\t|" + size + "\t\t|" + wordsCount +  "\t\t|" + linesCount + "\t\t|" + blankLineCount
+                + "\t\t|" + bracketLineCount + "\t\t|1\t\t|";
     }
 }
