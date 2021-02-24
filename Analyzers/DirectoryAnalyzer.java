@@ -60,7 +60,7 @@ public class DirectoryAnalyzer implements Analyzer{
         long totalSize = 0;
         long totalFilesCount = 0;
         StringBuilder out = new StringBuilder(//"_______________________________________________________________________________\n" +
-                "|File type\t\t|Size (B)\t\t|Words\t\t|Lines\t\t|Files count\t\t|\n");
+                "| File type\t\t|Size (B)\t\t|Words\t\t|Lines\t\t|Files count\t\t|\n");
         for (String key : data.keySet()){
             TypeData td = data.get(key);
             out.append(td.toString()).append("\n");
