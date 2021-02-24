@@ -69,6 +69,6 @@ public class FileAnalyzer implements Analyzer{
     @Override
     public String toString(){
         return "| " + fileType + "\t\t|" + size + "\t\t|" + wordsCount +  "\t\t|" + linesCount + "\t\t|" + blankLineCount
-                + "\t\t|" + bracketLineCount + "\t\t|1\t\t|";
+                + "\t\t|" + bracketLineCount + "\t\t|" + (linesCount - blankLineCount - bracketLineCount) + "\t\t|1\t\t|";
     }
 }

@@ -61,8 +61,8 @@ public class DirectoryAnalyzer implements Analyzer{
         long totalWords = 0;
         long totalSize = 0;
         long totalFilesCount = 0;
-        StringBuilder out = new StringBuilder("| File type\t|Size (B)\t|Words\t\t|Lines\t\t|Blank lines\t|Bracket lines\t|Files count\t|\n" +
-                "-----------------------------------------------------------------------------------------------------------------\n");
+        StringBuilder out = new StringBuilder("| File type\t|Size (B)\t|Words\t\t|Lines\t\t|Blank lines\t|Bracket lines\t|Pure lines\t|Files count\t|\n" +
+                "---------------------------------------------------------------------------------------------------------------------------------\n");
         for (String key : data.keySet()){
             TypeData td = data.get(key);
             out.append(td.toString()).append("\n");
@@ -73,13 +73,14 @@ public class DirectoryAnalyzer implements Analyzer{
             totalSize += td.getSize();
             totalFilesCount += td.getFilesCount();
         }
-        out.append("-----------------------------------------------------------------------------------------------------------------\n")
+        out.append("---------------------------------------------------------------------------------------------------------------------------------\n")
                 .append("| Total\t\t|")
                 .append(totalSize).append("\t\t|")
                 .append(totalWords).append("\t\t|")
                 .append(totalLines).append("\t\t|")
                 .append(totalBlankLines).append("\t\t|")
                 .append(totalBracketLines).append("\t\t|")
+                .append(totalLines - totalBlankLines - totalBracketLines).append("\t\t|")
                 .append(totalFilesCount).append("\t\t|");
         return out.toString();
     }

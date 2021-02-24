@@ -57,6 +57,6 @@ public class TypeData {
     @Override
     public String toString(){
         return "| " + type + "\t\t|" + size + "\t\t|" + words +  "\t\t|" + lines + "\t\t|" +
-                blankLines + "\t\t|" + bracketLines + "\t\t|" + filesCount + "\t\t|";
+                blankLines + "\t\t|" + bracketLines + "\t\t|" + (lines - bracketLines - blankLines) + "\t\t|" + filesCount + "\t\t|";
     }
 }
