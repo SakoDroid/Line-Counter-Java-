@@ -10,7 +10,7 @@ public class Type {
     private static final Type tp = new Type();
 
     private Type(){
-        try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream(System.getProperty("user.dir") + "/src/Analyzers/types.sak"))){
+        try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream(System.getProperty("user.dir") + "/assests/types.sak"))){
             types = (HashMap<String, String>) ois.readObject();
         }catch (Exception ex){
             System.out.println(ex.toString());
