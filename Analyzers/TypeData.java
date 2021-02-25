@@ -42,6 +42,8 @@ public class TypeData {
         this.lines += td.lines;
         this.words += td.words;
         this.size += td.size;
+        this.blankLines += td.blankLines;
+        this.bracketLines += td.bracketLines;
         this.filesCount += td.filesCount;
     }
 
@@ -51,7 +53,7 @@ public class TypeData {
         this.blankLines += fa.getBlankLineCount();
         this.bracketLines += fa.getBracketLineCount();
         this.size += fa.getSize();
-        filesCount ++;
+        this.filesCount ++;
     }
 
     @Override

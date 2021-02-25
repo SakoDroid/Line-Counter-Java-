@@ -1,10 +1,11 @@
-import Analyzers.Analyzer;
-import Analyzers.DirectoryAnalyzer;
-import Analyzers.FileAnalyzer;
+import Analyzers.*;
 import java.io.File;
 import java.util.Scanner;
+import java.util.Date;
 
 public class Main {
+
+    private static long startTime;
 
     public static void main(String[] args){
         File fl = null;
@@ -45,6 +46,7 @@ public class Main {
     }
 
     private static void startAnalyzing(File fl, boolean hidden){
+        startTime = new Date().getTime();
         Analyzer anlz = null;
         if (fl.isDirectory())
             anlz = new DirectoryAnalyzer(fl,hidden);
@@ -57,9 +59,14 @@ public class Main {
 
     private static void printResult(Analyzer an){
         if (an != null){
-            System.out.println("________________________________________________________________________________________________________________________________");
+            System.out.println("________________________________________________________________________________________________________________________________"+
+                    "| File type\t|Size (B)\t|Words\t\t|Lines\t\t|Blank lines\t|Bracket lines\t|Pure lines\t|Files count\t|\n" +
+                    "---------------------------------------------------------------------------------------------------------------------------------\n");
             System.out.println(an.toString());
             System.out.println("---------------------------------------------------------------------------------------------------------------------------------");
+            float wholeTime = (new Date().getTime() - startTime) / 1000.0F;
+            System.out.println("Statistics :    T = " + wholeTime + " s || " + (an.getTotalFilesCount() / wholeTime) + " files/second || " +
+                    (an.getTotalLinesCount() / wholeTime) + " lines/second");
         }
     }
 }

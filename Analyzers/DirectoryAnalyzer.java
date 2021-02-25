@@ -9,6 +9,8 @@ public class DirectoryAnalyzer implements Analyzer{
     private final File dir;
     private final HashMap<String,TypeData> data = new HashMap<>();
     private final boolean hidden;
+    private long totalFilesCount = 0;
+    private long totalLinesCount = 0;
 
     public DirectoryAnalyzer(File directory, boolean hid){
         this.dir = directory;
@@ -39,6 +41,16 @@ public class DirectoryAnalyzer implements Analyzer{
         }
     }
 
+    @Override
+    public float getTotalFilesCount() {
+        return this.totalFilesCount;
+    }
+
+    @Override
+    public float getTotalLinesCount() {
+        return this.totalLinesCount;
+    }
+
     private void mergeData(HashMap<String,TypeData> data2){
         for (String key : data2.keySet()){
             if (data.containsKey(key)) {
@@ -55,18 +67,15 @@ public class DirectoryAnalyzer implements Analyzer{
 
     @Override
     public String toString(){
-        long totalLines = 0;
         long totalBlankLines = 0;
         long totalBracketLines = 0;
         long totalWords = 0;
         long totalSize = 0;
-        long totalFilesCount = 0;
-        StringBuilder out = new StringBuilder("| File type\t|Size (B)\t|Words\t\t|Lines\t\t|Blank lines\t|Bracket lines\t|Pure lines\t|Files count\t|\n" +
-                "---------------------------------------------------------------------------------------------------------------------------------\n");
+        StringBuilder out = new StringBuilder();
         for (String key : data.keySet()){
             TypeData td = data.get(key);
             out.append(td.toString()).append("\n");
-            totalLines += td.getLines();
+            totalLinesCount += td.getLines();
             totalWords += td.getWords();
             totalBlankLines += td.getBlankLines();
             totalBracketLines += td.getBracketLines();
@@ -77,10 +86,10 @@ public class DirectoryAnalyzer implements Analyzer{
                 .append("| Total\t\t|")
                 .append(totalSize).append("\t\t|")
                 .append(totalWords).append("\t\t|")
-                .append(totalLines).append("\t\t|")
+                .append(totalLinesCount).append("\t\t|")
                 .append(totalBlankLines).append("\t\t|")
                 .append(totalBracketLines).append("\t\t|")
-                .append(totalLines - totalBlankLines - totalBracketLines).append("\t\t|")
+                .append(totalLinesCount - totalBlankLines - totalBracketLines).append("\t\t|")
                 .append(totalFilesCount).append("\t\t|");
         return out.toString();
     }
