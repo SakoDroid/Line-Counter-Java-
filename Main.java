@@ -20,7 +20,12 @@ public class Main {
                     exception = "Error!\n=> Please enter an address!\n(For help type akolc --help to see the full documentation)";
             }
             else{
-                if (!args[0].equals("--help")){
+                if (args[0].equals("--help")){
+                    exception = "end.";
+                    printHelp();
+                }else if (args[0].equals("--version"))
+                    System.out.println("Ako line counter version 1.0.0");
+                else{
                     int mode = 1;
                     for (int i = 1; i < args[0].length(); i++) {
                         if (args[0].charAt(i) == 'h')
@@ -43,9 +48,6 @@ public class Main {
                             git = true;
                         }
                     }
-                }else{
-                    exception = "end.";
-                    printHelp();
                 }
             }
         }else{
@@ -92,18 +94,31 @@ public class Main {
             System.out.println(an.toString());
             System.out.println("---------------------------------------------------------------------------------------------------------------------------------");
             float wholeTime = (new Date().getTime() - startTime) / 1000.0F;
-            System.out.println("Statistics :    T = " + wholeTime + " s || " + (an.getTotalFilesCount() / wholeTime) + " files/second || " +
-                    (an.getTotalLinesCount() / wholeTime) + " lines/second");
+            System.out.println("Statistics :    T = " + wholeTime + " s || " + (an.getTotalFilesCount() / wholeTime) + " files/s || " +
+                    (an.getTotalLinesCount() / wholeTime) + " lines/s");
         }
-        Runtime.getRuntime().halt(130);
+        endProgram();
     }
 
     private static void printHelp(){
-        System.out.println("Ako line counter documentation : \nProper format for calling the program : \n" +
-                "akolc [options] local address/git repo address\n\nOptions : \n1) -l : This option indicates that the given address" +
-                " is a local address.\n2) -g : This option indicates that the given address is a git repository address.\n3)" +
+        System.out.println("Ako line counter documentation : \nProper format for calling the program : \n\n" +
+                "       akolc [options] local address/git repo address\n\nOptions : \n\n    1) -l : This option indicates that the given address" +
+                " is a local address.\n    2) -g : This option indicates that the given address is a git repository address.\n    3)" +
                 " -h : This option tell the program to include hidden files and directories in the counting process.\n\n" +
                 "*** Note : If no option is set, the program will assume that the given address is a local address, so for analyzing a" +
                 "git repo you should definitely use \"-g\" option.");
+    }
+
+    private static void endProgram(){
+        File temp = new File(System.getProperty("user.dir") + "/Temp");
+        if (temp.isDirectory()){
+            try{
+                ProcessBuilder pb = new ProcessBuilder("rm","-rfd",System.getProperty("user.dir") + "/Temp");
+                pb.start().waitFor();
+            }catch (Exception ex){
+                System.out.println(ex.toString());
+            }
+        }
+        Runtime.getRuntime().halt(130);
     }
 }
