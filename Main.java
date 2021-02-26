@@ -102,11 +102,12 @@ public class Main {
 
     private static void printHelp(){
         System.out.println("Ako line counter documentation : \nProper format for calling the program : \n\n" +
-                "       akolc [options] local address/git repo address\n\nOptions : \n\n    1) -l : This option indicates that the given address" +
+                "       akolc [options] [local address/git repo address]\n\nOptions : \n\n    1) -l : This option indicates that the given address" +
                 " is a local address.\n    2) -g : This option indicates that the given address is a git repository address.\n    3)" +
                 " -h : This option tell the program to include hidden files and directories in the counting process.\n\n" +
-                "*** Note : If no option is set, the program will assume that the given address is a local address, so for analyzing a" +
-                "git repo you should definitely use \"-g\" option.");
+                "*** Note 1 : If no option is set, the program will assume that the given address is a local address, so for analyzing a" +
+                "git repo you should definitely use \"-g\" option.\n\n*** Note 2 : akolc command can be used directly without any " +
+                "option or address. In that case program will ask you what you want to do.");
     }
 
     private static void endProgram(){
