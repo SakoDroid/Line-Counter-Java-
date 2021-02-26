@@ -10,42 +10,69 @@ public class Main {
     public static void main(String[] args){
         File fl = null;
         boolean hidden = false;
+        boolean git = false;
         String exception = "";
         if (args.length > 0){
             if (!args[0].startsWith("-")) {
                 if (!args[0].isEmpty())
                     fl = new File(args[0]);
                 else
-                    exception = "!!! Please enter an address!";
+                    exception = "Error!\n=> Please enter an address!\n(For help type akolc --help to see the full documentation)";
             }
             else{
-                 for (int i = 1 ; i < args[0].length() ; i++){
-                    if (args[0].charAt(i) == 'h')
-                        hidden = true;
-                    else
-                        exception = "!!! Unrecognized flag : \"" + args[0].charAt(i) + "\"";
-                }
-                if (exception.isEmpty()){
-                    if (!args[1].isEmpty())
-                        fl = new File(args[1]);
-                    else
-                        exception = "!!! Please enter an address!";
+                if (!args[0].equals("--help")){
+                    int mode = 1;
+                    for (int i = 1; i < args[0].length(); i++) {
+                        if (args[0].charAt(i) == 'h')
+                            hidden = true;
+                        else if (args[0].charAt(i) == 'l')
+                            mode = 1;
+                        else if (args[0].charAt(i) == 'g')
+                            mode = 2;
+                        else
+                            exception = "Error!\n=> Unrecognized flag : \"" + args[0].charAt(i) + "\"";
+                    }
+                    if (exception.isEmpty()) {
+                        if (mode == 1) {
+                            if (!args[1].isEmpty())
+                                fl = new File(args[1]);
+                            else
+                                exception = "Error!\n=> Please enter an address!";
+                        } else {
+                            new GitCloner(args[1]);
+                            git = true;
+                        }
+                    }
+                }else{
+                    exception = "end.";
+                    printHelp();
                 }
             }
         }else{
             Scanner input = new Scanner(System.in);
-            System.out.println("Please enter a directory or a file address: ");
-            fl = new File(input.nextLine());
-            System.out.println("Including hidden files and directories? [Y/N]");
-            hidden = input.nextLine().equalsIgnoreCase("y");
+            System.out.println("Please select : (1 or 2)\n1) Local directory or file\n2) Git repository");
+            int mode = input.nextInt();
+            if (mode == 1){
+                System.out.println("Please enter a directory or a file address: ");
+                fl = new File(input.nextLine());
+                System.out.println("Including hidden files and directories? [Y/N]");
+                hidden = input.nextLine().equalsIgnoreCase("y");
+            }else if (mode == 2){
+                input = new Scanner(System.in);
+                System.out.println("Enter the repository address : ");
+                new GitCloner(input.nextLine());
+                git = true;
+            }else
+                exception = "Error!\n=> Invalid selection!";
         }
         if (exception.isEmpty())
-            startAnalyzing(fl,hidden);
+            startAnalyzing((git ? new File(System.getProperty("user.dir") + "/Temp") : fl),hidden);
         else
             System.out.println(exception);
     }
 
     private static void startAnalyzing(File fl, boolean hidden){
+        System.out.println(fl.getAbsolutePath());
         startTime = new Date().getTime();
         Analyzer anlz = null;
         if (fl.isDirectory())
@@ -53,7 +80,7 @@ public class Main {
         else if (fl.isFile())
             anlz = new FileAnalyzer(fl);
         else
-            System.out.println("!!! The address is invalid!");
+            System.out.println("Error!\n=> The address is invalid!");
         printResult(anlz);
     }
 
@@ -68,5 +95,15 @@ public class Main {
             System.out.println("Statistics :    T = " + wholeTime + " s || " + (an.getTotalFilesCount() / wholeTime) + " files/second || " +
                     (an.getTotalLinesCount() / wholeTime) + " lines/second");
         }
+        Runtime.getRuntime().halt(130);
+    }
+
+    private static void printHelp(){
+        System.out.println("Ako line counter documentation : \nProper format for calling the program : \n" +
+                "akolc [options] local address/git repo address\n\nOptions : \n1) -l : This option indicates that the given address" +
+                " is a local address.\n2) -g : This option indicates that the given address is a git repository address.\n3)" +
+                " -h : This option tell the program to include hidden files and directories in the counting process.\n\n" +
+                "*** Note : If no option is set, the program will assume that the given address is a local address, so for analyzing a" +
+                "git repo you should definitely use \"-g\" option.");
     }
 }
