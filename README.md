@@ -19,6 +19,6 @@ git repo you should definitely use "-g" option.<br><br>
 Installation:
 -
 You can install akolc on ubuntu or debian by downloading the debian package from this link : </br>
-https://github.com/SakoDroid/Line-Counter/releases/download/1.0.1/akolc_1.0.1-1_all.deb </br>
+https://github.com/SakoDroid/Line-Counter/releases/download/1.0.1/akolc_1.0.2-1_all.deb </br>
 For other distros you can install akolc by downloading the link below and extracting the archive to your root directory : </br>
-https://github.com/SakoDroid/Line-Counter/releases/download/1.0.1/akolc-1.0.1-linux.tar.gz
+https://github.com/SakoDroid/Line-Counter/releases/download/1.0.1/akolc-1.0.2-linux.tar.gz
