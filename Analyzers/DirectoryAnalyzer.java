@@ -93,4 +93,9 @@ public class DirectoryAnalyzer implements Analyzer{
                 .append(totalFilesCount).append("\t\t|");
         return out.toString();
     }
+
+    @Override
+    public String getAddress(){
+        return dir.getName();
+    }
 }

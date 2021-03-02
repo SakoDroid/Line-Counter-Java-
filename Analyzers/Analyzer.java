@@ -9,4 +9,6 @@ public interface Analyzer {
     float getTotalFilesCount();
 
     float getTotalLinesCount();
+
+    String getAddress();
 }

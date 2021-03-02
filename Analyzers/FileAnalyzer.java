@@ -81,4 +81,9 @@ public class FileAnalyzer implements Analyzer{
         return "| " + fileType + "\t\t|" + size + "\t\t|" + wordsCount +  "\t\t|" + linesCount + "\t\t|" + blankLineCount
                 + "\t\t|" + bracketLineCount + "\t\t|" + (linesCount - blankLineCount - bracketLineCount) + "\t\t|1\t\t|";
     }
+
+    @Override
+    public String getAddress(){
+        return file.getName();
+    }
 }
